@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SubTrackr 사이트 분석 보고서</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif; background: #f4f6f9; color: #222; font-size: 15px; }
+
+    header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: white; padding: 48px;
+    }
+    .header-inner { max-width: 1000px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    header h1 { font-size: 26px; font-weight: 800; margin-bottom: 6px; }
+    header p { font-size: 13px; opacity: 0.6; }
+    .header-meta { text-align: right; font-size: 13px; opacity: 0.6; line-height: 1.8; }
+
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
+
+    /* 섹션 타이틀 */
+    .section { margin-bottom: 40px; }
+    .section-title {
+      font-size: 17px; font-weight: 700; color: #0f3460;
+      border-left: 4px solid #e94560; padding-left: 14px;
+      margin-bottom: 20px;
+    }
+
+    /* 요약 카드 */
+    .summary-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 40px; }
+    .sum-card { background: white; border-radius: 12px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); text-align: center; }
+    .sum-card .label { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+    .sum-card .value { font-size: 20px; font-weight: 800; color: #0f3460; }
+    .sum-card .sub { font-size: 11px; color: #aaa; margin-top: 4px; }
+
+    /* 정보 카드 */
+    .info-card { background: white; border-radius: 14px; padding: 28px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); margin-bottom: 20px; }
+    .info-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 16px; color: #333; }
+
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th { background: #f8f9fb; padding: 11px 16px; text-align: left; font-weight: 600; color: #555; border-bottom: 2px solid #eee; font-size: 13px; }
+    td { padding: 12px 16px; border-bottom: 1px solid #f2f2f2; }
+    tr:last-child td { border-bottom: none; }
+    td:first-child { color: #888; font-size: 13px; width: 160px; }
+    td:last-child { font-weight: 500; }
+
+    /* 기능 그리드 */
+    .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .feature-item {
+      background: white; border-radius: 12px; padding: 22px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+      border-top: 3px solid;
+    }
+    .feature-item:nth-child(1) { border-color: #e94560; }
+    .feature-item:nth-child(2) { border-color: #0f3460; }
+    .feature-item:nth-child(3) { border-color: #533483; }
+    .feature-item:nth-child(4) { border-color: #e94560; }
+    .feature-item:nth-child(5) { border-color: #0f3460; }
+    .feature-item:nth-child(6) { border-color: #533483; }
+    .feature-icon { font-size: 26px; margin-bottom: 10px; }
+    .feature-name { font-size: 14px; font-weight: 700; margin-bottom: 6px; color: #222; }
+    .feature-desc { font-size: 12px; color: #888; line-height: 1.7; }
+
+    /* SWOT */
+    .swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .swot-item { background: white; border-radius: 12px; padding: 22px; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+    .swot-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; margin-bottom: 12px; padding: 4px 10px; border-radius: 4px; display: inline-block; }
+    .swot-s .swot-label { background: #e8f5e9; color: #2e7d32; }
+    .swot-w .swot-label { background: #fff3e0; color: #e65100; }
+    .swot-o .swot-label { background: #e3f2fd; color: #1565c0; }
+    .swot-t .swot-label { background: #fce4ec; color: #c62828; }
+    .swot-item ul { list-style: none; }
+    .swot-item ul li { font-size: 13px; color: #555; padding: 5px 0; border-bottom: 1px solid #f5f5f5; line-height: 1.6; }
+    .swot-item ul li:last-child { border-bottom: none; }
+    .swot-item ul li::before { content: "•"; margin-right: 8px; font-weight: 700; }
+    .swot-s ul li::before { color: #2e7d32; }
+    .swot-w ul li::before { color: #e65100; }
+    .swot-o ul li::before { color: #1565c0; }
+    .swot-t ul li::before { color: #c62828; }
+
+    /* UX 평가 */
+    .ux-item { display: flex; align-items: center; margin-bottom: 14px; }
+    .ux-label { width: 160px; font-size: 13px; color: #666; flex-shrink: 0; }
+    .ux-bar-bg { flex: 1; background: #f0f2f5; border-radius: 6px; height: 10px; margin: 0 12px; }
+    .ux-bar { height: 10px; border-radius: 6px; }
+    .ux-score { font-size: 13px; font-weight: 700; color: #0f3460; width: 36px; text-align: right; }
+
+    /* 개선 제안 */
+    .suggest-list { list-style: none; }
+    .suggest-list li {
+      background: white; border-radius: 10px; padding: 16px 20px;
+      margin-bottom: 10px; box-shadow: 0 1px 6px rgba(0,0,0,0.05);
+      display: flex; gap: 14px; align-items: flex-start;
+    }
+    .suggest-num {
+      background: #0f3460; color: white; width: 24px; height: 24px;
+      border-radius: 50%; font-size: 12px; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .suggest-text { font-size: 14px; color: #444; line-height: 1.7; }
+    .suggest-text strong { color: #0f3460; display: block; margin-bottom: 2px; }
+
+    /* 결론 */
+    .conclusion { background: linear-gradient(135deg, #0f3460, #533483); color: white; border-radius: 14px; padding: 32px; }
+    .conclusion h3 { font-size: 17px; font-weight: 700; margin-bottom: 16px; }
+    .conclusion p { font-size: 14px; line-height: 1.9; opacity: 0.9; }
+    .rating { display: inline-block; background: rgba(255,255,255,0.2); border-radius: 8px; padding: 8px 20px; font-size: 22px; font-weight: 800; margin-top: 16px; }
+
+    footer { text-align: center; padding: 32px; color: #bbb; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <h1>SubTrackr 사이트 분석 보고서</h1>
+      <p>www.subtrac.kr — AI 기반 구독 관리 서비스</p>
+    </div>
+    <div class="header-meta">
+      <div>분석일: 2026년 4월 1일</div>
+      <div>분석 도구: Claude + Chrome</div>
+      <div>URL: https://www.subtrac.kr</div>
+    </div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- 핵심 지표 -->
+  <div class="summary-grid">
+    <div class="sum-card">
+      <div class="label">서비스 유형</div>
+      <div class="value">SaaS</div>
+      <div class="sub">구독 관리 도구</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">지원 서비스</div>
+      <div class="value">130+</div>
+      <div class="sub">11개 언어 지원</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">핵심 차별점</div>
+      <div class="value">AI 감지</div>
+      <div class="sub">은행 연동 불필요</div>
+    </div>
+    <div class="sum-card">
+      <div class="label">가격</div>
+      <div class="value">무료</div>
+      <div class="sub">가입 불필요</div>
+    </div>
+  </div>
+
+  <!-- 기본 정보 -->
+  <div class="section">
+    <div class="section-title">1. 사이트 기본 정보</div>
+    <div class="info-card">
+      <table>
+        <tr><td>서비스명</td><td>SubTrackr (서브트래커)</td></tr>
+        <tr><td>URL</td><td>https://www.subtrac.kr</td></tr>
+        <tr><td>페이지 타이틀</td><td>SubTrackr - Track Subscriptions Without Bank Login | AI-Powered, Free</td></tr>
+        <tr><td>서비스 개요</td><td>AI 기반 구독 자동 감지 및 지출 관리 서비스 — 스크린샷 또는 영수증 업로드만으로 구독 내역을 자동 추출</td></tr>
+        <tr><td>타깃 사용자</td><td>구독 서비스를 여러 개 이용 중인 개인 사용자 (특히 구독 과부하 경험자)</td></tr>
+        <tr><td>주요 언어</td><td>한국어 (UI 기본), 11개 언어 지원</td></tr>
+        <tr><td>저장 방식</td><td>로컬 기기 저장 (서버 업로드 없음 — 프라이버시 강조)</td></tr>
+        <tr><td>저작권</td><td>© 2025 SubTrackr</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- 핵심 기능 -->
+  <div class="section">
+    <div class="section-title">2. 핵심 기능 분석</div>
+    <div class="feature-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🤖</div>
+        <div class="feature-name">AI 자동 감지</div>
+        <div class="feature-desc">영수증이나 스크린샷을 업로드하면 AI가 구독 항목을 자동으로 인식. 별도 입력 없이 즉시 구독 목록 생성 가능</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📊</div>
+        <div class="feature-name">구독 대시보드</div>
+        <div class="feature-desc">월간/연간 지출 총액, 활성 구독 수, 다음 결제일 등 핵심 지표를 한눈에 확인. 절약 팁도 함께 제공</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">📅</div>
+        <div class="feature-name">결제 캘린더</div>
+        <div class="feature-desc">월 단위 달력 뷰로 각 구독의 결제 예정일 시각화. 놓치기 쉬운 결제를 사전에 인지 가능</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-name">프라이버시 보호</div>
+        <div class="feature-desc">데이터는 기기 로컬에만 저장. 은행 연동 불필요, 가입 없이 바로 사용 가능 — 개인정보 수집 최소화</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⚡</div>
+        <div class="feature-name">빠른 추가</div>
+        <div class="feature-desc">Netflix, YouTube, Spotify, Disney+, Apple TV+, Hulu, Wavve 등 130개 이상의 서비스 아이콘으로 원클릭 추가</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💾</div>
+        <div class="feature-name">백업 & 내보내기</div>
+        <div class="feature-desc">JSON/CSV 형식으로 데이터 내보내기 및 기기 간 데이터 이전 지원. 데이터 이식성 확보</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- UX/UI 평가 -->
+  <div class="section">
+    <div class="section-title">3. UX / UI 평가</div>
+    <div class="info-card">
+      <div class="ux-item">
+        <div class="ux-label">첫인상 / 디자인</div>
+        <div class="ux-bar-bg"><div class="ux-bar" style="width:88%; background: linear-gradient(90deg, #0f3460, #533483);"></div></div>
+        <div class="ux-score">88</div>
+      </div>
+      <div class="ux-item">
+        <div class="ux-label">메시지 명확성</div>
+        <div class="ux-bar-bg"><div class="ux-bar" style="width:92%; background: linear-gradient(90deg, #0f3460, #533483);"></div></div>
+        <div class="ux-score">92</div>
+      </div>
+      <div class="ux-item">
+        <div class="ux-label">사용 편의성</div>
+        <div class="ux-bar-bg"><div class="ux-bar" style="width:85%; background: linear-gradient(90deg, #0f3460, #533483);"></div></div>
+        <div class="ux-score">85</div>
+      </div>
+      <div class="ux-item">
+        <div class="ux-label">정보 구조 (IA)</div>
+        <div class="ux-bar-bg"><div class="ux-bar" style="width:80%; background: linear-gradient(90deg, #0f3460, #533483);"></div></div>
+        <div class="ux-score">80</div>
+      </div>
+      <div class="ux-item">
+        <div class="ux-label">가입 없이 시작</div>
+        <div class="ux-bar-bg"><div class="ux-bar" style="width:95%; background: linear-gradient(90deg, #0f3460, #533483);"></div></div>
+        <div class="ux-score">95</div>
+      </div>
+      <div class="ux-item">
+        <div class="ux-label">신뢰감 / 안전성</div>
+        <div class="ux-bar-bg"><div class="ux-bar" style="width:82%; background: linear-gradient(90deg, #0f3460, #533483);"></div></div>
+        <div class="ux-score">82</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SWOT -->
+  <div class="section">
+    <div class="section-title">4. SWOT 분석</div>
+    <div class="swot-grid">
+      <div class="swot-item swot-s">
+        <div class="swot-label">STRENGTH · 강점</div>
+        <ul>
+          <li>가입 없이 즉시 사용 — 온보딩 마찰 제로</li>
+          <li>AI 자동 감지로 수동 입력 부담 없음</li>
+          <li>은행 연동 없는 로컬 저장 → 프라이버시 강점</li>
+          <li>다크 테마 + 깔끔한 UI로 앱 품질 인식 높음</li>
+          <li>130+ 서비스 지원으로 실용성 높음</li>
+          <li>무료 서비스 — 진입 장벽 없음</li>
+        </ul>
+      </div>
+      <div class="swot-item swot-w">
+        <div class="swot-label">WEAKNESS · 약점</div>
+        <ul>
+          <li>랜딩 페이지가 곧 앱 화면 — 제품 소개 구분 불명확</li>
+          <li>회원가입 없어 기기 분실 시 데이터 복구 어려움</li>
+          <li>SEO 최적화 정보 부족 (소개 콘텐츠 부재)</li>
+          <li>실제 사용자 후기/소셜 증명 없음</li>
+          <li>모바일 앱 제공 여부 불명확</li>
+        </ul>
+      </div>
+      <div class="swot-item swot-o">
+        <div class="swot-label">OPPORTUNITY · 기회</div>
+        <ul>
+          <li>구독 서비스 급증으로 관리 수요 확대</li>
+          <li>개인정보 이슈 민감 증가 → 로컬 저장 강점 부각</li>
+          <li>글로벌 확장 가능 (11개 언어 지원 기반)</li>
+          <li>가계부 앱과 연동/비교 포지셔닝 가능</li>
+          <li>B2B 팀 구독 관리 니즈 대응 가능</li>
+        </ul>
+      </div>
+      <div class="swot-item swot-t">
+        <div class="swot-label">THREAT · 위협</div>
+        <ul>
+          <li>토스, 뱅크샐러드 등 금융앱의 구독 분석 기능 확장</li>
+          <li>Apple/Google 네이티브 구독 관리 기능 강화</li>
+          <li>로컬 저장 → 크로스 디바이스 동기화 경쟁 열위</li>
+          <li>유사 AI 구독 추적 서비스 등장 가능성</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 개선 제안 -->
+  <div class="section">
+    <div class="section-title">5. 개선 제안</div>
+    <ul class="suggest-list">
+      <li>
+        <div class="suggest-num">1</div>
+        <div class="suggest-text">
+          <strong>소셜 증명 섹션 추가</strong>
+          "이미 X명이 사용 중" 형태의 사용자 수 카운터, 후기, 별점 등을 히어로 영역 아래에 배치해 신뢰도를 높일 것
+        </div>
+      </li>
+      <li>
+        <div class="suggest-num">2</div>
+        <div class="suggest-text">
+          <strong>랜딩 페이지 vs 앱 화면 구분</strong>
+          현재 랜딩 페이지가 즉시 앱으로 진입되는 구조. 서비스 소개 → 데모 → 시작하기 흐름의 마케팅 랜딩 페이지를 별도 구성하면 전환율 향상 가능
+        </div>
+      </li>
+      <li>
+        <div class="suggest-num">3</div>
+        <div class="suggest-text">
+          <strong>선택적 클라우드 동기화 옵션 제공</strong>
+          로컬 저장을 기본으로 유지하되, 로그인 시 클라우드 백업 옵션을 제공하면 기기 교체 우려를 해소하고 유저 락인 효과도 기대 가능
+        </div>
+      </li>
+      <li>
+        <div class="suggest-num">4</div>
+        <div class="suggest-text">
+          <strong>모바일 앱 출시 또는 PWA 전환</strong>
+          구독 관리는 모바일에서 더 자주 확인하는 니즈. 모바일 최적화 앱 또는 홈 화면 추가 가능한 PWA로 일상적 접근성 강화 필요
+        </div>
+      </li>
+      <li>
+        <div class="suggest-num">5</div>
+        <div class="suggest-text">
+          <strong>알림 기능 강화</strong>
+          결제일 D-3, D-1 알림을 브라우저 푸시 또는 이메일로 제공하면 핵심 가치인 "결제 놓치지 않기"를 더 강력하게 실현 가능
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 종합 결론 -->
+  <div class="section">
+    <div class="section-title">6. 종합 평가</div>
+    <div class="conclusion">
+      <h3>총평</h3>
+      <p>
+        SubTrackr는 <strong>"가입 없이, 은행 연동 없이, AI로 바로 시작"</strong>이라는 명확한 포지셔닝을 갖춘 구독 관리 서비스입니다.
+        개인정보 보호에 민감한 사용자를 정확히 겨냥한 로컬 저장 전략과, AI 자동 감지라는 강력한 차별점은 기존 금융 앱들과 충분히 차별화됩니다.
+        UI/UX는 전반적으로 깔끔하고 직관적이며 다크 테마로 앱 품질에 대한 인식도 높습니다.
+        다만 소셜 증명 부재, 랜딩-앱 경계 불명확, 모바일 접근성 부족은 성장을 위한 핵심 개선 과제로 보입니다.
+        전반적으로 프로덕트 완성도가 높은 초기 단계 서비스로, 사용자 획득 마케팅과 신뢰 구축 콘텐츠를 강화한다면 빠른 성장이 기대됩니다.
+      </p>
+      <div class="rating">종합 점수: 84 / 100</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>분석: Claude Sonnet 4.6 &nbsp;|&nbsp; 2026-04-01 &nbsp;|&nbsp; subtrac.kr</footer>
+
+</body>
+</html>

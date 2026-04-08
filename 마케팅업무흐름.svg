@@ -1,0 +1,166 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 420" width="1100" height="420" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif">
+  <defs>
+    <!-- 배경 그라디언트 -->
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f0c29"/>
+      <stop offset="50%" style="stop-color:#302b63"/>
+      <stop offset="100%" style="stop-color:#24243e"/>
+    </linearGradient>
+
+    <!-- 카드 색상 -->
+    <linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea"/>
+      <stop offset="100%" style="stop-color:#764ba2"/>
+    </linearGradient>
+    <linearGradient id="g2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f093fb"/>
+      <stop offset="100%" style="stop-color:#f5576c"/>
+    </linearGradient>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4facfe"/>
+      <stop offset="100%" style="stop-color:#00f2fe"/>
+    </linearGradient>
+    <linearGradient id="g4" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#43e97b"/>
+      <stop offset="100%" style="stop-color:#38f9d7"/>
+    </linearGradient>
+    <linearGradient id="g5" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fa709a"/>
+      <stop offset="100%" style="stop-color:#fee140"/>
+    </linearGradient>
+
+    <!-- 화살표 마커 -->
+    <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="rgba(255,255,255,0.4)"/>
+    </marker>
+
+    <!-- 글로우 필터 -->
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
+      <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="rgba(0,0,0,0.4)"/>
+    </filter>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="1100" height="420" fill="url(#bg)" rx="20"/>
+
+  <!-- 배경 원형 장식 -->
+  <circle cx="80" cy="80" r="120" fill="rgba(255,255,255,0.02)"/>
+  <circle cx="1020" cy="340" r="150" fill="rgba(255,255,255,0.02)"/>
+  <circle cx="550" cy="210" r="200" fill="rgba(255,255,255,0.015)"/>
+
+  <!-- 타이틀 -->
+  <text x="550" y="52" text-anchor="middle" fill="white" font-size="20" font-weight="700" letter-spacing="2" opacity="0.95">마케팅 업무 흐름</text>
+  <line x1="430" y1="62" x2="670" y2="62" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+
+  <!-- 연결선 -->
+  <line x1="218" y1="210" x2="258" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <line x1="418" y1="210" x2="458" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <line x1="618" y1="210" x2="658" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+  <line x1="818" y1="210" x2="858" y2="210" stroke="rgba(255,255,255,0.35)" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrow)"/>
+
+  <!-- ====== 카드 1: 기획 ====== -->
+  <g filter="url(#shadow)">
+    <rect x="48" y="110" width="170" height="200" rx="18" fill="url(#g1)" opacity="0.95"/>
+  </g>
+  <!-- 아이콘 원 -->
+  <circle cx="133" cy="165" r="34" fill="rgba(255,255,255,0.2)"/>
+  <!-- 기획 아이콘: 전구 -->
+  <ellipse cx="133" cy="160" rx="14" ry="16" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="M124 172 Q133 180 142 172" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="127" y1="178" x2="139" y2="178" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="129" y1="183" x2="137" y2="183" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="133" y1="144" x2="133" y2="140" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="118" y1="149" x2="115" y2="146" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="148" y1="149" x2="151" y2="146" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- 텍스트 -->
+  <text x="133" y="218" text-anchor="middle" fill="white" font-size="17" font-weight="700">기획</text>
+  <text x="133" y="238" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">목표 설정</text>
+  <text x="133" y="254" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">타깃 분석</text>
+  <text x="133" y="270" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">전략 수립</text>
+  <!-- 단계 번호 -->
+  <circle cx="165" cy="122" r="12" fill="rgba(255,255,255,0.25)"/>
+  <text x="165" y="126" text-anchor="middle" fill="white" font-size="11" font-weight="700">1</text>
+
+  <!-- ====== 카드 2: 콘텐츠 제작 ====== -->
+  <g filter="url(#shadow)">
+    <rect x="248" y="110" width="170" height="200" rx="18" fill="url(#g2)" opacity="0.95"/>
+  </g>
+  <circle cx="333" cy="165" r="34" fill="rgba(255,255,255,0.2)"/>
+  <!-- 콘텐츠 아이콘: 펜/편집 -->
+  <rect x="319" y="150" width="22" height="28" rx="3" fill="none" stroke="white" stroke-width="2.5"/>
+  <line x1="323" y1="158" x2="337" y2="158" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="323" y1="164" x2="337" y2="164" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <line x1="323" y1="170" x2="331" y2="170" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <path d="M338 176 L344 170 L347 173 L341 179 Z" fill="white"/>
+  <line x1="338" y1="179" x2="342" y2="179" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+  <text x="333" y="218" text-anchor="middle" fill="white" font-size="17" font-weight="700">콘텐츠 제작</text>
+  <text x="333" y="238" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">카피라이팅</text>
+  <text x="333" y="254" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">디자인 작업</text>
+  <text x="333" y="270" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">영상 · 이미지</text>
+  <circle cx="365" cy="122" r="12" fill="rgba(255,255,255,0.25)"/>
+  <text x="365" y="126" text-anchor="middle" fill="white" font-size="11" font-weight="700">2</text>
+
+  <!-- ====== 카드 3: 검토 ====== -->
+  <g filter="url(#shadow)">
+    <rect x="448" y="110" width="170" height="200" rx="18" fill="url(#g3)" opacity="0.95"/>
+  </g>
+  <circle cx="533" cy="165" r="34" fill="rgba(255,255,255,0.2)"/>
+  <!-- 검토 아이콘: 돋보기 + 체크 -->
+  <circle cx="529" cy="160" r="13" fill="none" stroke="white" stroke-width="2.5"/>
+  <line x1="538" y1="169" x2="546" y2="177" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+  <polyline points="523,160 527,164 536,155" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="533" y="218" text-anchor="middle" fill="white" font-size="17" font-weight="700">검토</text>
+  <text x="533" y="238" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">품질 확인</text>
+  <text x="533" y="254" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">피드백 반영</text>
+  <text x="533" y="270" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">최종 승인</text>
+  <circle cx="565" cy="122" r="12" fill="rgba(255,255,255,0.25)"/>
+  <text x="565" y="126" text-anchor="middle" fill="white" font-size="11" font-weight="700">3</text>
+
+  <!-- ====== 카드 4: 배포 ====== -->
+  <g filter="url(#shadow)">
+    <rect x="648" y="110" width="170" height="200" rx="18" fill="url(#g4)" opacity="0.95"/>
+  </g>
+  <circle cx="733" cy="165" r="34" fill="rgba(255,255,255,0.2)"/>
+  <!-- 배포 아이콘: 로켓 -->
+  <path d="M733 148 C733 148 744 150 746 162 L740 168 L726 168 L720 162 C722 150 733 148 733 148 Z" fill="none" stroke="white" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="733" cy="161" r="4" fill="none" stroke="white" stroke-width="2"/>
+  <path d="M726 168 L723 174 L729 171" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M740 168 L743 174 L737 171" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="733" y="218" text-anchor="middle" fill="white" font-size="17" font-weight="700">배포</text>
+  <text x="733" y="238" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">채널 업로드</text>
+  <text x="733" y="254" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">SNS · 이메일</text>
+  <text x="733" y="270" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">광고 집행</text>
+  <circle cx="765" cy="122" r="12" fill="rgba(255,255,255,0.25)"/>
+  <text x="765" y="126" text-anchor="middle" fill="white" font-size="11" font-weight="700">4</text>
+
+  <!-- ====== 카드 5: 성과 분석 ====== -->
+  <g filter="url(#shadow)">
+    <rect x="848" y="110" width="200" height="200" rx="18" fill="url(#g5)" opacity="0.95"/>
+  </g>
+  <circle cx="948" cy="165" r="34" fill="rgba(255,255,255,0.2)"/>
+  <!-- 성과 분석 아이콘: 차트 막대 -->
+  <rect x="932" y="166" width="8" height="12" rx="2" fill="white"/>
+  <rect x="944" y="158" width="8" height="20" rx="2" fill="white"/>
+  <rect x="956" y="151" width="8" height="27" rx="2" fill="white"/>
+  <line x1="928" y1="179" x2="968" y2="179" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  <!-- 상승 화살표 -->
+  <polyline points="932,170 942,162 952,166 964,154" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="1.5" stroke-dasharray="3,2" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="948" y="218" text-anchor="middle" fill="white" font-size="17" font-weight="700">성과 분석</text>
+  <text x="948" y="238" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">KPI 측정</text>
+  <text x="948" y="254" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">리포트 작성</text>
+  <text x="948" y="270" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="11">인사이트 도출</text>
+  <circle cx="985" cy="122" r="12" fill="rgba(255,255,255,0.25)"/>
+  <text x="985" y="126" text-anchor="middle" fill="white" font-size="11" font-weight="700">5</text>
+
+  <!-- 하단 피드백 루프 화살표 -->
+  <path d="M948 315 Q948 370 550 370 Q152 370 133 315" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" stroke-dasharray="6,4"/>
+  <polygon points="133,315 128,324 138,323" fill="rgba(255,255,255,0.3)"/>
+  <text x="550" y="365" text-anchor="middle" fill="rgba(255,255,255,0.35)" font-size="11" letter-spacing="1">피드백 루프</text>
+
+  <!-- 하단 레이블 -->
+  <text x="550" y="400" text-anchor="middle" fill="rgba(255,255,255,0.2)" font-size="10" letter-spacing="3">MARKETING WORKFLOW</text>
+</svg>
