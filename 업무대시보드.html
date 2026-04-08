@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="description" content="마케팅팀을 위한 통합 업무 관리 대시보드">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="김비서">
+<link rel="apple-touch-icon" href="./icon-192.svg">
+<link rel="manifest" href="./manifest.json">
 <title>업무 대시보드</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <style>
@@ -712,6 +719,16 @@ new Chart(document.getElementById('trendChart'), {
     }
   }
 });
+
+// ─── PWA Service Worker 등록
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').then(
+      reg => console.log('✅ Service Worker 등록 완료'),
+      err => console.log('⚠️ Service Worker 등록 실패:', err)
+    );
+  });
+}
 </script>
 </body>
 </html>
