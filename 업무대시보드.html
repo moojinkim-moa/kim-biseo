@@ -221,11 +221,12 @@
 
     /* 할 일: 입력 두 줄 배치 */
     .todo-add { flex-wrap: wrap; gap: 6px; }
-    .todo-input { flex: 1 1 100%; font-size: 13px; }
-    .priority-select { flex: 1; font-size: 12px; }
-    .add-btn { flex: 1; font-size: 13px; }
+    .todo-input { flex: 1 1 100%; font-size: 16px; min-height: 44px; } /* iOS 줌 방지: 16px */
+    .priority-select { flex: 1; font-size: 16px; min-height: 44px; } /* iOS 줌 방지: 16px */
+    .add-btn { flex: 1; font-size: 14px; min-height: 44px; }
+    .todo-cb { width: 20px; height: 20px; min-width: 20px; } /* 터치 영역 확대 */
     .todo-list { max-height: 260px; }
-    .todo-del { opacity: 0.45; } /* 터치 환경: 항상 표시 */
+    .todo-del { opacity: 1; min-width: 36px; height: 36px; font-size: 18px; display: flex; align-items: center; justify-content: center; } /* 터치: 항상 표시, 영역 확대 */
     .todo-text { font-size: 13px; }
     .todo-meta { display: none; } /* 모바일에서 담당자/마감 숨김으로 공간 확보 */
 
@@ -290,6 +291,23 @@
     .insight-text { font-size: 12px; }
     .pr-label { width: 48px; font-size: 11px; }
     .pr-val   { font-size: 11px; }
+  }
+
+  /* Safe area (노치/홈바 대응) */
+  @supports (padding: env(safe-area-inset-left)) {
+    .topbar {
+      padding-left: max(14px, env(safe-area-inset-left));
+      padding-right: max(14px, env(safe-area-inset-right));
+    }
+    .main {
+      padding-left: max(10px, env(safe-area-inset-left));
+      padding-right: max(10px, env(safe-area-inset-right));
+      padding-bottom: max(10px, env(safe-area-inset-bottom));
+    }
+    .weather-bar {
+      padding-left: max(14px, env(safe-area-inset-left));
+      padding-right: max(14px, env(safe-area-inset-right));
+    }
   }
 
   /* 소형 모바일 (~ 374px) */
@@ -669,7 +687,10 @@ new Chart(document.getElementById('salesDonut'), {
   options: {
     responsive: true, maintainAspectRatio: false, cutout: '60%',
     plugins: {
-      legend: { position: 'right', labels: { color: '#7d8590', font: { size: 11 }, boxWidth: 10, padding: 8 } },
+      legend: {
+        position: window.innerWidth <= 750 ? 'bottom' : 'right',
+        labels: { color: '#7d8590', font: { size: window.innerWidth <= 750 ? 10 : 11 }, boxWidth: 10, padding: window.innerWidth <= 750 ? 6 : 8 }
+      },
       tooltip: { callbacks: { label: ctx => ' ' + (ctx.parsed/10000).toFixed(0) + '만원' } }
     }
   }
