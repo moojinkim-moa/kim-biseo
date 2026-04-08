@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#2d2d4e;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="192" height="192" fill="url(#bg)"/>
+  <circle cx="96" cy="96" r="90" fill="#1a1a2e"/>
+  <text x="96" y="120" font-family="Apple SD Gothic Neo, Noto Sans KR, sans-serif" font-size="72" font-weight="800" text-anchor="middle" fill="#58a6ff" letter-spacing="-2">김비</text>
+  <circle cx="96" cy="96" r="88" fill="none" stroke="#58a6ff" stroke-width="2" opacity="0.3"/>
+</svg>
